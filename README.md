@@ -11,7 +11,7 @@ cd muc-coding-night
 
 ### 1. Install Graphcool CLI
 
-You first have to get your GraphQL endpoint for the above schema using the [Graphcool CLI](https://www.npmjs.com/package/graphcool):
+You first have to install the [Graphcool CLI](https://www.graph.cool/docs/reference/cli/overview-kie1quohli/):
 
 ```sh
 npm install -g graphcool
