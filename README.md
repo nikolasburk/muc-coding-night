@@ -1,49 +1,67 @@
 # graphql-chat
 
-
-## Schema
+## Data model
 
 This is what the data model for the chat looks like:
 
 ```graphql
-type Person {
+type Person @model {
+  id: ID! @isUnique    # required system-field (read-only)
+  createdAt: DateTime! # optional system-field (read-only)
+  updatedAt: DateTime! # optional system-field (read-only)
   name: String!
   messages: [Message!]! @relation(name: "UserMessages")
 }
 
-type Message {
+type Message @model {
+  id: ID! @isUnique    # required system-field (read-only)
+  createdAt: DateTime! # optional system-field (read-only)
+  updatedAt: DateTime! # optional system-field (read-only)
   text: String!
   sentBy: Person! @relation(name: "UserMessages")
 }
 ```
 
+> Every type that's declared with the `@model` directive is mapped to the database.
+
 ## Get your GraphQL Endpoint
+
+### 1. Install Graphcool CLI
 
 You first have to get your GraphQL endpoint for the above schema using the [Graphcool CLI](https://www.npmjs.com/package/graphcool):
 
-```
+```sh
 # Install Graphcool CLI
 npm install -g graphcool
-
-# Get your GraphQL Endpoint (create project in Graphcool Console)
-# This will open a browser and require you to log in
-graphcool init --schema https://graphqlbin.com/chat.graphql --name Chat
 ```
 
-Copy the endpoint for the `Simple API` and use it in the next step. You can always retrieve your endpoints by using `graphcool endpoints` in the directory where `project.graphcool` is located (usually where you created the project).
+### 2. Bootstrap local file structure for GraphQL server
 
-## Connect your App
+```sh
+# Create files in directory called `server`
+graphcool init server
+```
 
-In `index.js` you need to set the variables `graphQLEndpoint` and `subscriptionsUrl`. You can retrieve your endpoints by calling `graphcool endpoints` in the same directory where you created the project (i.e. where you called `graphcool init`).
+### 3. Configure data model
 
-- `graphQLEndpoint ` is the endpoint for the **Simple API**
-- `subscriptionsUrl` is the endpoint for the **Subscriptions API**
+Paste the data model from above into the new file `server/types.graphql` and save the changes.
+
+### 4. Deploy the GraphQL server
+
+Navigate into the `server` directory and deploy the server:
+
+```sh
+cd server
+graphcool deploy
+```
+
+When prompted, choose any of the **Shared Clusters**, e.g. `eu-west-1`.
 
 ## Run the app 🚀
 
 That's it, you can now start the app:
 
-```
+```sh
 yarn install
 yarn start
 ```
