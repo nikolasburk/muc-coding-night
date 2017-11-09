@@ -1,28 +1,11 @@
 # graphql-chat
 
-## Data model
+## Clone the repository
 
-This is what the data model for the chat looks like:
-
-```graphql
-type Person @model {
-  id: ID! @isUnique    # required system-field (read-only)
-  createdAt: DateTime! # optional system-field (read-only)
-  updatedAt: DateTime! # optional system-field (read-only)
-  name: String!
-  messages: [Message!]! @relation(name: "UserMessages")
-}
-
-type Message @model {
-  id: ID! @isUnique    # required system-field (read-only)
-  createdAt: DateTime! # optional system-field (read-only)
-  updatedAt: DateTime! # optional system-field (read-only)
-  text: String!
-  sentBy: Person! @relation(name: "UserMessages")
-}
+```sh
+git clone git@github.com:nikolasburk/muc-coding-night.git
+cd muc-coding-night
 ```
-
-> Every type that's declared with the `@model` directive is mapped to the database.
 
 ## Get your GraphQL endpoint
 
@@ -42,7 +25,27 @@ graphcool init server # create files in new directory called `server`
 
 ### 3. Configure data model
 
-Paste the data model from above into the new file `server/types.graphql` and save the changes.
+Paste the following data model into the new file `server/types.graphql` and save the changes:
+
+```graphql
+type Person @model {
+  id: ID! @isUnique    # required system-field (read-only)
+  createdAt: DateTime! # optional system-field (read-only)
+  updatedAt: DateTime! # optional system-field (read-only)
+  name: String!
+  messages: [Message!]! @relation(name: "UserMessages")
+}
+
+type Message @model {
+  id: ID! @isUnique    # required system-field (read-only)
+  createdAt: DateTime! # optional system-field (read-only)
+  updatedAt: DateTime! # optional system-field (read-only)
+  text: String!
+  sentBy: Person! @relation(name: "UserMessages")
+}
+```
+
+> Every type that's annotated with the `@model` directive is mapped to the database.
 
 ### 4. Deploy the GraphQL server
 
