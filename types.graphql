@@ -1,0 +1,15 @@
+type Person @model {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!  
+  name: String!
+  messages: [Message!]! @relation(name: "UserMessages")
+}
+
+type Message @model {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!  
+  text: String!
+  sentBy: Person! @relation(name: "UserMessages")
+}
