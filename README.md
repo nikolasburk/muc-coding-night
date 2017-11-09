@@ -24,22 +24,20 @@ type Message @model {
 
 > Every type that's declared with the `@model` directive is mapped to the database.
 
-## Get your GraphQL Endpoint
+## Get your GraphQL endpoint
 
 ### 1. Install Graphcool CLI
 
 You first have to get your GraphQL endpoint for the above schema using the [Graphcool CLI](https://www.npmjs.com/package/graphcool):
 
 ```sh
-# Install Graphcool CLI
 npm install -g graphcool
 ```
 
 ### 2. Bootstrap local file structure for GraphQL server
 
 ```sh
-# Create files in directory called `server`
-graphcool init server
+graphcool init server # create files in new directory called `server`
 ```
 
 ### 3. Configure data model
